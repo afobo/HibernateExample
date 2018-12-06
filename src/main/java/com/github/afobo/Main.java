@@ -5,6 +5,13 @@ import org.hibernate.Session;
 public class Main {
 	public static void main(String[] args) {
         fillData();
+        readDataByRID();
+    }
+
+    private static void readDataByRID() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Product p1 = (Product) session.get(Product.class, 41);
+        System.out.println("p1.getName() = " + p1.getName());
     }
 
     private static void fillData() {
