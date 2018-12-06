@@ -2,6 +2,7 @@ package com.github.afobo;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterJoinTable;
 import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.Column;
@@ -83,7 +84,8 @@ public class Service implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_OID", nullable = false)
+    @JoinColumn(name = "PRODUCT_OID", referencedColumnName = "OID", nullable = false)
+    @FilterJoinTable(name="gidFilter", condition=":gid between from_gid and to_gid")
     public Product getProduct() {
         return product;
     }

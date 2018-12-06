@@ -11,8 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         fillData();
-        readDataByRID();
-        readDataByOID();
+//        readDataByRID();
+//        readDataByOID();
         readDataByOID_WithGIDFilter(1);
         readDataByOID_WithGIDFilter(2);
         readDataByOID_WithGIDFilter(MAX_VALUE);
