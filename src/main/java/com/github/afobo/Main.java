@@ -1,10 +1,8 @@
-package com.mkyong;
+package com.github.afobo;
 
-import com.mkyong.user.Product;
-import com.mkyong.util.HibernateUtil;
 import org.hibernate.Session;
 
-public class App {
+public class Main {
 	public static void main(String[] args) {
         fillData();
     }
