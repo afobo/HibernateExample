@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mkyong.common</groupId>
+	<groupId>com.github.afobo</groupId>
 	<artifactId>HibernateExample</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0</version>
@@ -24,14 +24,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- MySQL database driver 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.9</version>
-		</dependency>
-		-->
-		
 		<!-- ORACLE database driver -->
 		<dependency>
 			<groupId>com.oracle</groupId>
@@ -44,13 +36,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>3.6.3.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.12.1.GA</version>
+			<version>5.3.7.Final</version>
 		</dependency>
 
 	</dependencies>
