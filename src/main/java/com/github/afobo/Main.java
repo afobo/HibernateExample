@@ -3,6 +3,7 @@ package com.github.afobo;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -15,13 +16,22 @@ public class Main {
         readDataByOID_WithGIDFilter(1);
         readDataByOID_WithGIDFilter(2);
         readDataByOID_WithGIDFilter(MAX_VALUE);
+
+        System.exit(0);
+    }
+
+    private static void printProduct(Product p) {
+        String serviceNames = p.getServices().stream()
+                .map(Service::getName)
+                .collect(Collectors.joining(",", "[", "]"));
+        System.out.println("p.name = " + p.getName() + ", services = " + serviceNames);
     }
 
     private static void readDataByRID() {
         System.out.println("=== readDataByRID");
         Session session = HibernateUtil.getSessionFactory().openSession();
         Product p1 = (Product) session.get(Product.class, 41);
-        System.out.println("p1.getName() = " + p1.getName());
+        printProduct(p1);
     }
 
     private static void readDataByOID() {
@@ -30,7 +40,7 @@ public class Main {
         List list = session.createQuery("from Product where oid = 50").list();
         for (Object o : list) {
             Product p = (Product) o;
-            System.out.println("p.getName() = " + p.getName());
+            printProduct(p);
         }
     }
 
@@ -41,7 +51,7 @@ public class Main {
         List list = session.createQuery("from Product where oid = 50").list();
         for (Object o : list) {
             Product p = (Product) o;
-            System.out.println("p.getName() = " + p.getName());
+            printProduct(p);
         }
     }
 
@@ -49,9 +59,24 @@ public class Main {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.createQuery("DELETE FROM Product").executeUpdate();
-        session.save(new Product(40, 50, 1, 1, "Save"));
-        session.save(new Product(41, 50, 2, 2, "Save1"));
-        session.save(new Product(42, 50, 3, MAX_VALUE, "Save2"));
+        session.createQuery("DELETE FROM Service").executeUpdate();
+
+
+        Product p1 = new Product(40, 50, 1, 1, "Save");
+        session.save(p1);
+        Product p2 = new Product(41, 50, 2, 2, "Save1");
+        session.save(p2);
+        Product p3 = new Product(42, 50, 3, MAX_VALUE, "Save2");
+        session.save(p3);
+
+        Service s1 = new Service(80, 90, 1, MAX_VALUE, "Open");
+        s1.setProduct(p1);
+        session.save(s1);
+
+        Service s2 = new Service(81, 91, 1, MAX_VALUE, "Close");
+        s2.setProduct(p1);
+        session.save(s2);
+
         session.getTransaction().commit();
     }
 }

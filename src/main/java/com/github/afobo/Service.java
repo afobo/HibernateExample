@@ -8,28 +8,27 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "SERVICES")
 @FilterDef(name = "gidFilter", parameters = {@ParamDef(name = "gid", type = "integer")})
 @Filter(name = "gidFilter", condition = ":gid between from_gid and to_gid")
-public class Product implements java.io.Serializable {
+public class Service implements java.io.Serializable {
 
     private int rid;
     private int oid;
     private int from_gid;
     private int to_gid;
     private String name;
-    private Set<Service> services = new HashSet<Service>();
+    private Product product;
 
-    public Product() {
+    public Service() {
     }
 
-    public Product(int rid, int oid, int from_gid, int to_gid, String name) {
+    public Service(int rid, int oid, int from_gid, int to_gid, String name) {
         this.rid = rid;
         this.oid = oid;
         this.from_gid = from_gid;
@@ -83,12 +82,13 @@ public class Product implements java.io.Serializable {
         this.name = name;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    public Set<Service> getServices() {
-        return services;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_OID", nullable = false)
+    public Product getProduct() {
+        return product;
     }
 
-    public void setServices(Set<Service> services) {
-        this.services = services;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
