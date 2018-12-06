@@ -1,24 +1,21 @@
 package com.mkyong;
 
-import java.util.Date;
-import org.hibernate.Session;
+import com.mkyong.user.Product;
 import com.mkyong.util.HibernateUtil;
-import com.mkyong.user.DBUser;
+import org.hibernate.Session;
 
 public class App {
 	public static void main(String[] args) {
-		System.out.println("Maven + Hibernate Annotation + Oracle");
-		Session session = HibernateUtil.getSessionFactory().openSession();
+        fillData();
+    }
 
-		session.beginTransaction();
-		DBUser user = new DBUser();
-
-		user.setUserId(100);
-		user.setUsername("Hibernate101");
-		user.setCreatedBy("system");
-		user.setCreatedDate(new Date());
-
-		session.save(user);
-		session.getTransaction().commit();
-	}
+    private static void fillData() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.createQuery("DELETE FROM Product").executeUpdate();
+        session.save(new Product(40, 50, 1, 1, "Save"));
+        session.save(new Product(41, 50, 2, 2, "Save1"));
+        session.save(new Product(42, 50, 3, 99999, "Save2"));
+        session.getTransaction().commit();
+    }
 }
