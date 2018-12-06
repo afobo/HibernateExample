@@ -1,5 +1,10 @@
 package com.github.afobo;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUCTS")
+@FilterDef(name="gidFilter", parameters={
+		@ParamDef( name="gid", type="integer" )
+})
+@Filters( {
+		@Filter(name="gidFilter", condition=":gid between from_gid and to_gid")
+} )
 public class Product implements java.io.Serializable {
 
 	private int rid;

@@ -9,6 +9,7 @@ public class Main {
         fillData();
         readDataByRID();
         readDataByOID();
+        readDataByOID_WithGIDFilter();
     }
 
     private static void readDataByRID() {
@@ -19,6 +20,17 @@ public class Main {
 
     private static void readDataByOID() {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        List list = session.createQuery("from Product where oid = 50").list();
+        for (Object o : list) {
+            Product p = (Product) o;
+            System.out.println("p.getName() = " + p.getName());
+        }
+    }
+
+    private static void readDataByOID_WithGIDFilter() {
+        System.out.println("=== readDataByOID_WithGIDFilter");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.enableFilter("gidFilter").setParameter("gid", 1);
         List list = session.createQuery("from Product where oid = 50").list();
         for (Object o : list) {
             Product p = (Product) o;
