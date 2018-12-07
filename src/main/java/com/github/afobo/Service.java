@@ -7,7 +7,10 @@ import org.hibernate.annotations.ParamDef;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "SERVICES")
@@ -21,6 +24,8 @@ public class Service implements java.io.Serializable {
     private int to_gid;
     private String name;
     private int product_oid;
+
+    private Set<Product> products;
 
     public Service() {
     }
@@ -87,5 +92,16 @@ public class Service implements java.io.Serializable {
 
     public void setProduct_oid(int product_oid) {
         this.product_oid = product_oid;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "OID", referencedColumnName = "PRODUCT_OID")
+    @Filter(name="gidFilter", condition=":gid between from_gid and to_gid")
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

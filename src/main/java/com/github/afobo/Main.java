@@ -3,6 +3,7 @@ package com.github.afobo;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -52,6 +53,17 @@ public class Main {
         for (Object o : list) {
             Product p = (Product) o;
             printProduct(p);
+            printServices(p.getServices());
+        }
+    }
+
+    private static void printServices(Set<Service> services) {
+        for (Service s : services) {
+            String productNames = s.getProducts().stream()
+                    .map(Product::getName)
+                    .collect(Collectors.joining(",", "[", "]"));
+            System.out.println("s.name = " + s.getName() + ", products = " + productNames);
+
         }
     }
 
