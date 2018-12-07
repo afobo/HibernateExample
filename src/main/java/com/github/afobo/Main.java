@@ -40,7 +40,7 @@ public class Main {
     private static void readDataByOID() {
         System.out.println("=== readDataByOID");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List list = session.createQuery("from Product where oid = 50").list();
+        List list = session.createQuery("from Product where objectId = 50").list();
         for (Object o : list) {
             Product p = (Product) o;
             printProduct(p);
@@ -51,7 +51,7 @@ public class Main {
         System.out.println("=== readDataByOID_WithGIDFilter: " + gid);
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.enableFilter("gidFilter").setParameter("gid", gid);
-        List list = session.createQuery("from Product where oid = 50").list();
+        List list = session.createQuery("from Product where objectId = 50").list();
         for (Object o : list) {
             Product p = (Product) o;
             printProduct(p);

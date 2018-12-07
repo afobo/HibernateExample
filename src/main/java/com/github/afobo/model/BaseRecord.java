@@ -14,58 +14,61 @@ import java.io.Serializable;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 @FilterDef(name = "gidFilter", parameters = {@ParamDef(name = "gid", type = "integer")})
-@Filter(name = "gidFilter", condition = ":gid between from_gid and to_gid")
+@Filter(name = BaseRecord.GID_FILTER_NAME, condition = BaseRecord.GID_FILTER_CONDITION)
 public abstract class BaseRecord implements Serializable {
+
+    public static final String GID_FILTER_NAME = "gidFilter";
+    public static final String GID_FILTER_CONDITION = ":gid between from_gid and to_gid";
 
     @Id
     @Column(name = "RID", unique = true, nullable = false, precision = 5, scale = 0)
-    private int rid;
+    private int recordId;
     @Column(name = "OID", nullable = false, precision = 5, scale = 0)
-    private int oid;
+    private int objectId;
     @Column(name = "FROM_GID", nullable = false, precision = 5, scale = 0)
-    private int from_gid;
+    private int fromGid;
     @Column(name = "TO_GID", nullable = false, precision = 5, scale = 0)
-    private int to_gid;
+    private int toGid;
 
     public BaseRecord() {
     }
 
-    public BaseRecord(int rid, int oid, int from_gid, int to_gid) {
-        this.rid = rid;
-        this.oid = oid;
-        this.from_gid = from_gid;
-        this.to_gid = to_gid;
+    public BaseRecord(int recordId, int objectId, int fromGid, int toGid) {
+        this.recordId = recordId;
+        this.objectId = objectId;
+        this.fromGid = fromGid;
+        this.toGid = toGid;
     }
 
-    public int getRid() {
-        return this.rid;
+    public int getRecordId() {
+        return this.recordId;
     }
 
-    public void setRid(int rid) {
-        this.rid = rid;
+    public void setRecordId(int recordId) {
+        this.recordId = recordId;
     }
 
-    public int getOid() {
-        return oid;
+    public int getObjectId() {
+        return objectId;
     }
 
-    public void setOid(int oid) {
-        this.oid = oid;
+    public void setObjectId(int objectId) {
+        this.objectId = objectId;
     }
 
-    public int getFrom_gid() {
-        return from_gid;
+    public int getFromGid() {
+        return fromGid;
     }
 
-    public void setFrom_gid(int from_gid) {
-        this.from_gid = from_gid;
+    public void setFromGid(int fromGid) {
+        this.fromGid = fromGid;
     }
 
-    public int getTo_gid() {
-        return to_gid;
+    public int getToGid() {
+        return toGid;
     }
 
-    public void setTo_gid(int to_gid) {
-        this.to_gid = to_gid;
+    public void setToGid(int toGid) {
+        this.toGid = toGid;
     }
 }

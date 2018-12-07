@@ -21,19 +21,19 @@ public class Service extends BaseRecord {
     @Column(name = "NAME", nullable = false, length = 20)
     private String name;
     @Column(name = "PRODUCT_OID", nullable = false, precision = 5, scale = 0)
-    private int product_oid;
+    private int productObjectId;
     @OneToMany
     @JoinColumn(name = "OID", referencedColumnName = "PRODUCT_OID")
-    @Filter(name="gidFilter", condition=":gid between from_gid and to_gid")
+    @Filter(name=GID_FILTER_NAME, condition=GID_FILTER_CONDITION)
     private Set<Product> products  = new HashSet<>();
 
     public Service() {
     }
 
-    public Service(int rid, int oid, int from_gid, int to_gid, String name, int product_oid) {
-        super(rid, oid, from_gid, to_gid);
+    public Service(int recordId, int objectId, int fromGid, int toGid, String name, int productObjectId) {
+        super(recordId, objectId, fromGid, toGid);
         this.name = name;
-        this.product_oid = product_oid;
+        this.productObjectId = productObjectId;
     }
 
     public String getName() {
@@ -44,12 +44,12 @@ public class Service extends BaseRecord {
         this.name = name;
     }
 
-    public int getProduct_oid() {
-        return product_oid;
+    public int getProductObjectId() {
+        return productObjectId;
     }
 
-    public void setProduct_oid(int product_oid) {
-        this.product_oid = product_oid;
+    public void setProductObjectId(int productObjectId) {
+        this.productObjectId = productObjectId;
     }
 
     public Set<Product> getProducts() {

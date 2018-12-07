@@ -21,14 +21,14 @@ public class Product extends BaseRecord {
     private String name;
     @OneToMany
     @JoinColumn(name = "PRODUCT_OID", referencedColumnName = "OID")
-    @Filter(name="gidFilter", condition=":gid between from_gid and to_gid")
+    @Filter(name=GID_FILTER_NAME, condition=GID_FILTER_CONDITION)
     private Set<Service> services = new HashSet<>();
 
     public Product() {
     }
 
-    public Product(int rid, int oid, int from_gid, int to_gid, String name) {
-        super(rid, oid, from_gid, to_gid);
+    public Product(int recordId, int objectId, int fromGid, int toGid, String name) {
+        super(recordId, objectId, fromGid, toGid);
         this.name = name;
     }
 
