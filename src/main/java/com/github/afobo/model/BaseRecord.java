@@ -1,4 +1,4 @@
-package com.github.afobo;
+package com.github.afobo.model;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;

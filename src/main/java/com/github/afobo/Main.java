@@ -1,5 +1,7 @@
 package com.github.afobo;
 
+import com.github.afobo.model.Product;
+import com.github.afobo.model.Service;
 import org.hibernate.Session;
 
 import java.util.List;
