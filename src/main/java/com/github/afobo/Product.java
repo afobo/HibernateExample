@@ -6,8 +6,8 @@ import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
@@ -83,7 +83,9 @@ public class Product implements java.io.Serializable {
         this.name = name;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany
+    @JoinColumn(name = "PRODUCT_OID", referencedColumnName = "OID")
+    @Filter(name="gidFilter", condition=":gid between from_gid and to_gid")
     public Set<Service> getServices() {
         return services;
     }

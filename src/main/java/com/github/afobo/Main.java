@@ -69,13 +69,14 @@ public class Main {
         Product p3 = new Product(42, 50, 3, MAX_VALUE, "Save2");
         session.save(p3);
 
-        Service s1 = new Service(80, 90, 1, MAX_VALUE, "Open");
-        s1.setProduct(p1);
+        Service s1 = new Service(80, 90, 1, 1, "Open", 50);
         session.save(s1);
 
-        Service s2 = new Service(81, 91, 1, MAX_VALUE, "Close");
-        s2.setProduct(p1);
+        Service s2 = new Service(81, 91, 1, MAX_VALUE, "Close", 50);
         session.save(s2);
+
+        Service s3 = new Service(82, 90, 2, MAX_VALUE, "Open1", 50);
+        session.save(s3);
 
         session.getTransaction().commit();
     }

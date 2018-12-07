@@ -2,15 +2,11 @@ package com.github.afobo;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.FilterJoinTable;
 import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,17 +20,18 @@ public class Service implements java.io.Serializable {
     private int from_gid;
     private int to_gid;
     private String name;
-    private Product product;
+    private int product_oid;
 
     public Service() {
     }
 
-    public Service(int rid, int oid, int from_gid, int to_gid, String name) {
+    public Service(int rid, int oid, int from_gid, int to_gid, String name, int product_oid) {
         this.rid = rid;
         this.oid = oid;
         this.from_gid = from_gid;
         this.to_gid = to_gid;
         this.name = name;
+        this.product_oid = product_oid;
     }
 
     @Id
@@ -83,14 +80,12 @@ public class Service implements java.io.Serializable {
         this.name = name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_OID", referencedColumnName = "OID", nullable = false)
-    @FilterJoinTable(name="gidFilter", condition=":gid between from_gid and to_gid")
-    public Product getProduct() {
-        return product;
+    @Column(name = "PRODUCT_OID", nullable = false, precision = 5, scale = 0)
+    public int getProduct_oid() {
+        return product_oid;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct_oid(int product_oid) {
+        this.product_oid = product_oid;
     }
 }
