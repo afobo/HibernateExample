@@ -2,8 +2,6 @@ package com.github.afobo.model;
 
 import org.hibernate.annotations.Filter;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,16 +10,18 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.github.afobo.model.Constants.GID_FILTER;
+
 @Entity
 @Table(name = "PRODUCTS")
-@Access(AccessType.FIELD)
 public class Product extends BaseRecord {
 
-    @Column(name = "NAME", nullable = false, length = 20)
+    @Column(name = "NAME")
     private String name;
+
     @OneToMany
     @JoinColumn(name = "PRODUCT_OID", referencedColumnName = "OID")
-    @Filter(name=GID_FILTER_NAME, condition=GID_FILTER_CONDITION)
+    @Filter(name = GID_FILTER)
     private Set<Service> services = new HashSet<>();
 
     public Product() {

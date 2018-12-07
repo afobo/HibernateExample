@@ -11,23 +11,27 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+import static com.github.afobo.model.Constants.GID_FILTER;
+import static com.github.afobo.model.Constants.GID_FILTER_CONDITION;
+import static com.github.afobo.model.Constants.GID_FILTER_PARAM;
+
 @MappedSuperclass
 @Access(AccessType.FIELD)
-@FilterDef(name = "gidFilter", parameters = {@ParamDef(name = "gid", type = "integer")})
-@Filter(name = BaseRecord.GID_FILTER_NAME, condition = BaseRecord.GID_FILTER_CONDITION)
+@FilterDef(name = GID_FILTER, parameters = {@ParamDef(name = GID_FILTER_PARAM, type = "integer")}, defaultCondition = GID_FILTER_CONDITION)
+@Filter(name = GID_FILTER)
 public abstract class BaseRecord implements Serializable {
 
-    public static final String GID_FILTER_NAME = "gidFilter";
-    public static final String GID_FILTER_CONDITION = ":gid between from_gid and to_gid";
-
     @Id
-    @Column(name = "RID", unique = true, nullable = false, precision = 5, scale = 0)
+    @Column(name = "RID")
     private int recordId;
-    @Column(name = "OID", nullable = false, precision = 5, scale = 0)
+
+    @Column(name = "OID")
     private int objectId;
-    @Column(name = "FROM_GID", nullable = false, precision = 5, scale = 0)
+
+    @Column(name = "FROM_GID")
     private int fromGid;
-    @Column(name = "TO_GID", nullable = false, precision = 5, scale = 0)
+
+    @Column(name = "TO_GID")
     private int toGid;
 
     public BaseRecord() {
